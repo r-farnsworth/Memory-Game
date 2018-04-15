@@ -12,6 +12,17 @@ const cardPics = [
   "fa-music"
 ]
 
+let openedCards = []
+let completedPairs =[]
+
+
+// set up event listener for showing the cards on click
+const deck = document.querySelector(".deck")
+
+deck.addEventListener('click', function() {
+  console.log("hello")
+})
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
