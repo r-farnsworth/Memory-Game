@@ -19,9 +19,14 @@ let completedPairs =[]
 // set up event listener for showing the cards on click
 const deck = document.querySelector(".deck")
 
-deck.addEventListener('click', function() {
-  console.log("hello")
+deck.addEventListener("click", (event) => {
+  event.target.classList.add('open', 'show')
+  setTimeout(function() {
+    event.target.classList.remove('open', 'show')
+  }, 1000)
+
 })
+
 
 /*
  * Display the cards on the page
