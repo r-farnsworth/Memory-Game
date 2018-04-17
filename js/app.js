@@ -60,7 +60,10 @@ function cardClicked(event) {
     if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
       console.log("it's a match!")
       while (openedCards.length !== 0) {
+        completedPairs.push(openedCards)
         openedCards.pop()
+        console.log(`cards in openedCards array: ${openedCards.length}
+        cards in completedPairs array: ${completedPairs.length}`)
       }
 
     } else {
