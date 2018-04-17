@@ -1,6 +1,6 @@
-/*
- * Create a list that holds all of your cards
- */
+/* array containing all my cards.
+Note that there are 8 pairs or 16 individual cards in total.
+*/
 const cardPics = [
   "fa-diamond",
   "fa-paper-plane-o",
@@ -20,21 +20,26 @@ const cardPics = [
   "fa-music"
 ]
 
+//these arrays are empty for now - will be filled later as the game progresses.
 let openedCards = []
 let completedPairs =[]
 
 const deck = document.querySelector(".deck")
 
-// small function which only opens and displays the card. The click event handler comes later on
+/* small function which only opens and displays the card.
+The click event handler comes later on */
 function showCard(card) {
   card.classList.add('open', 'show')
 }
 
+/* this function is the opposite of showCard();
+it removes the classes and is invoked by the wrongMove() function. */
 function hideCard(card) {
   card.classList.remove('open', 'show')
 }
 
 function wrongMove() {
+  // a while loop to remove the cards from openCards using the pop() method
   while(openedCards.length !==0) {
       hideCard(openedCards.pop())
   }
@@ -46,9 +51,11 @@ function cardClicked(event) {
 
   if (!openedCards.includes(selectedCard)) {
     showCard(selectedCard)
+    // adds the cards to the openedCards array using push()
     openedCards.push(selectedCard)
   }
 
+// will invove wrongMove function after 1.5 seconds
   if(openedCards.length === 2) {
     setTimeout(wrongMove, 1500)
   }
