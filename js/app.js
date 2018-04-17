@@ -46,52 +46,51 @@ function wrongMove() {
   }
 }
 
-function congratulations() {
-  window.alert("All the pairs are belong to you!")
+function emptyOpenedCards() {
+  completedPairs.push(openedCards)
+  openedCards.pop()
+
 }
 
+function turnMatchGreen() {
+  openedCards[0].classList.add('match')
+  openedCards[1].classList.add('match')
+}
 
+function congratulations() {
+  window.alert("all the pairs are belong to you!")
+}
 
-// set up event listener for showing the cards on click
+// this will be run when a card is clicked
 function cardClicked(event) {
   let selectedCard = event.target
 
+// adds the cards to the openedCards array
   if (!openedCards.includes(selectedCard)) {
-    showCard(selectedCard)
-    // adds the cards to the openedCards array using push()
-    openedCards.push(selectedCard)
-
+     showCard(selectedCard)
+     openedCards.push(selectedCard)
   }
 
-
+// checks for a match
   if (openedCards.length === 2) {
-    if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
-      openedCards[0].classList.add('match')
-      openedCards[1].classList.add('match')
-      while (openedCards.length !== 0) {
-        completedPairs.push(openedCards)
-        openedCards.pop()
+     if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
+       turnMatchGreen()
+       while (openedCards.length !== 0) {
+        emptyOpenedCards()
         if (completedPairs.length === 16) {
-          setTimeout(congratulations, 500)
+          setTimeout(congratulations, 250)
         }
       }
 
     } else {
-      // will invove wrongMove function after 1.5 seconds
-      setTimeout(wrongMove, 1500)
+      // will invove wrongMove function after 0.75 seconds
+      setTimeout(wrongMove, 750)
     }
-
   }
-
-  console.log(`cards in array: ${openedCards.length}`)
-
-
 
 }
 
-
 deck.addEventListener("click", cardClicked)
-
 
 
 
