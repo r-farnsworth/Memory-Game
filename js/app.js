@@ -25,6 +25,7 @@ let openedCards = []
 let completedPairs = []
 
 const deck = document.querySelector(".deck")
+let moves = document.querySelector('.moves')
 
 /* small function which only opens and displays the card.
 The click event handler comes later on */
@@ -38,6 +39,9 @@ function hideCard(card) {
   card.classList.remove('open', 'show')
 }
 
+function addMoves() {
+  moves.innerHTML++
+}
 
 function wrongMove() {
   // a while loop to remove the cards from openCards using the pop() method
@@ -73,6 +77,7 @@ function cardClicked(event) {
 
 // checks for a match
   if (openedCards.length === 2) {
+    addMoves()
      if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
        turnMatchGreen()
        while (openedCards.length !== 0) {
