@@ -49,7 +49,9 @@ function wrongMove() {
 function emptyOpenedCards() {
   completedPairs.push(openedCards)
   openedCards.pop()
-
+  while (openedCards.length !== 0) {
+   emptyOpenedCards()
+ }
 }
 
 function turnMatchGreen() {
@@ -75,12 +77,11 @@ function cardClicked(event) {
   if (openedCards.length === 2) {
      if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
        turnMatchGreen()
-       while (openedCards.length !== 0) {
-        emptyOpenedCards()
+
         if (completedPairs.length === 16) {
           setTimeout(congratulations, 250)
         }
-      }
+
 
     } else {
       // will invove wrongMove function after 0.75 seconds
