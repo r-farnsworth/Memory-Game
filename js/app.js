@@ -46,6 +46,8 @@ function wrongMove() {
   }
 }
 
+
+
 // set up event listener for showing the cards on click
 function cardClicked(event) {
   let selectedCard = event.target
@@ -58,12 +60,11 @@ function cardClicked(event) {
 
   if (openedCards.length === 2) {
     if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
-      console.log("it's a match!")
+      openedCards[0].classList.add('match')
+      openedCards[1].classList.add('match')
       while (openedCards.length !== 0) {
         completedPairs.push(openedCards)
         openedCards.pop()
-        console.log(`cards in openedCards array: ${openedCards.length}
-        cards in completedPairs array: ${completedPairs.length}`)
       }
 
     } else {
