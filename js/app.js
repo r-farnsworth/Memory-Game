@@ -60,7 +60,9 @@ function cardClicked(event) {
     showCard(selectedCard)
     // adds the cards to the openedCards array using push()
     openedCards.push(selectedCard)
+
   }
+
 
   if (openedCards.length === 2) {
     if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
@@ -69,6 +71,9 @@ function cardClicked(event) {
       while (openedCards.length !== 0) {
         completedPairs.push(openedCards)
         openedCards.pop()
+        if (completedPairs.length === 16) {
+          setTimeout(congratulations, 500)
+        }
       }
 
     } else {
@@ -79,10 +84,8 @@ function cardClicked(event) {
   }
 
   console.log(`cards in array: ${openedCards.length}`)
-  
-  if (completedPairs.length === 16) {
-    congratulations()
-  }
+
+
 
 }
 
