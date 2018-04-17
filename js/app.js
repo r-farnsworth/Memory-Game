@@ -9,23 +9,55 @@ const cardPics = [
   "fa-cube",
   "fa-leaf",
   "fa-bicycle",
+  "fa-music",
+  "fa-diamond",
+  "fa-paper-plane-o",
+  "fa-anchor",
+  "fa-bolt",
+  "fa-cube",
+  "fa-leaf",
+  "fa-bicycle",
   "fa-music"
 ]
 
 let openedCards = []
 let completedPairs =[]
 
-
-// set up event listener for showing the cards on click
 const deck = document.querySelector(".deck")
 
-deck.addEventListener("click", (event) => {
-  event.target.classList.add('open', 'show')
-  setTimeout(function() {
-    event.target.classList.remove('open', 'show')
-  }, 1000)
+// small function which only opens and displays the card. The click event handler comes later on
+function showCard(card) {
+  card.classList.add('open', 'show')
+}
 
-})
+function hideCard(card) {
+  card.classList.remove('open', 'show')
+}
+
+function wrongMove() {
+  while(openedCards.length !==0) {
+      hideCard(openedCards.pop())
+  }
+}
+
+// set up event listener for showing the cards on click
+function cardClicked(event) {
+  let selectedCard = event.target
+
+  if (!openedCards.includes(selectedCard)) {
+    showCard(selectedCard)
+    openedCards.push(selectedCard)
+  }
+
+  if(openedCards.length === 2) {
+    setTimeout(wrongMove, 1500)
+  }
+
+  console.log(`cards in array: ${openedCards.length}`)
+}
+
+deck.addEventListener("click", cardClicked)
+
 
 
 /*
@@ -49,7 +81,6 @@ function shuffle(array) {
 
     return array;
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
