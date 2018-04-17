@@ -22,7 +22,7 @@ const cardPics = [
 
 //these arrays are empty for now - will be filled later as the game progresses.
 let openedCards = []
-let completedPairs =[]
+let completedPairs = []
 
 const deck = document.querySelector(".deck")
 
@@ -38,10 +38,11 @@ function hideCard(card) {
   card.classList.remove('open', 'show')
 }
 
+
 function wrongMove() {
   // a while loop to remove the cards from openCards using the pop() method
-  while(openedCards.length !==0) {
-      hideCard(openedCards.pop())
+  while (openedCards.length !== 0) {
+    hideCard(openedCards.pop())
   }
 }
 
@@ -55,9 +56,17 @@ function cardClicked(event) {
     openedCards.push(selectedCard)
   }
 
-// will invove wrongMove function after 1.5 seconds
-  if(openedCards.length === 2) {
-    setTimeout(wrongMove, 1500)
+  if (openedCards.length === 2) {
+    if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
+      console.log("it's a match!")
+      while (openedCards.length !== 0) {
+        openedCards.pop()
+      }
+
+    } else {
+      // will invove wrongMove function after 1.5 seconds
+      setTimeout(wrongMove, 1500)
+    }
   }
 
   console.log(`cards in array: ${openedCards.length}`)
@@ -76,17 +85,18 @@ deck.addEventListener("click", cardClicked)
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 /*
