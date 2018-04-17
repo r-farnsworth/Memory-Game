@@ -46,6 +46,10 @@ function wrongMove() {
   }
 }
 
+function congratulations() {
+  window.alert("All the pairs are belong to you!")
+}
+
 
 
 // set up event listener for showing the cards on click
@@ -71,12 +75,20 @@ function cardClicked(event) {
       // will invove wrongMove function after 1.5 seconds
       setTimeout(wrongMove, 1500)
     }
+
   }
 
   console.log(`cards in array: ${openedCards.length}`)
+  
+  if (completedPairs.length === 16) {
+    congratulations()
+  }
+
 }
 
+
 deck.addEventListener("click", cardClicked)
+
 
 
 
