@@ -32,9 +32,13 @@ const stars = document.querySelectorAll(".fa-star");
 let second = 0,
   minute = 0;
 let timer = document.querySelector(".timer");
-let interval;
+// Using a falsy value here so that the startTimer function will only run once the cardClicked event fires, and will not re-run when another card is clicked
+let interval = null;
 
 function startTimer() {
+  if (interval) {
+    return
+  }
   interval = setInterval(function() {
     timer.innerHTML = `${minute} minutes ${second} seconds`
     second++;
@@ -123,6 +127,7 @@ function congratulations() {
 
 // this will be run when a card is clicked
 function cardClicked(event) {
+  startTimer()
   let selectedCard = event.target
 
   /* adds the cards to the openedCards array
@@ -158,6 +163,7 @@ function cardClicked(event) {
 
 function deckClicked(event) {
   // if the click was on a card, pass it on to the card clicked event
+
   if (event.target.className === "card") {
     cardClicked(event)
   } else {
@@ -168,7 +174,7 @@ function deckClicked(event) {
 
 function newGame() {
   deck.addEventListener("click", deckClicked)
-  startTimer()
+
 }
  newGame()
 
