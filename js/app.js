@@ -26,6 +26,28 @@ let completedPairs = []
 
 const deck = document.querySelector(".deck")
 let moves = document.querySelector('.moves')
+const stars = document.querySelectorAll(".fa-star");
+
+
+let second = 0,
+  minute = 0;
+let timer = document.querySelector(".timer");
+let interval;
+
+function startTimer() {
+  interval = setInterval(function() {
+    timer.innerHTML = `${minute} minutes ${second} seconds`
+    second++;
+    if (second == 60) {
+      minute++;
+      second = 0;
+    }
+    if (minute == 60) {
+      hour++;
+      minute = 0;
+    }
+  }, 1000);
+}
 
 /* small functions which are either invoked by each other
 or later by the event handlers. This stops me writing more code than I need to, or having very large and bloated functions. */
@@ -41,6 +63,23 @@ function hideCard(card) {
 function addMoves() {
   // increments the innerHTML of the moves variable by 1.
   moves.innerHTML++
+  checkStarRating()
+}
+
+function checkStarRating() {
+  if (moves.innerHTML > 9 && moves.innerHTML < 14) {
+      for(i=0; i < 3; i++) {
+        if (i > 1) {
+          stars[i].style.visibility = "collapse"
+        }
+      }
+  } else if (moves.innerHTML > 18){
+    for(i=0; i < 3; i++) {
+      if (i > 0) {
+          stars[i].style.visibility = "collapse"
+      }
+    }
+  }
 }
 
 function wrongMove() {
@@ -79,6 +118,7 @@ function congratulations() {
   4 option to reset board
   */
   window.alert("all the pairs are belong to you!")
+  clearInterval(interval)
 }
 
 // this will be run when a card is clicked
@@ -126,7 +166,11 @@ function deckClicked(event) {
 }
 
 
-deck.addEventListener("click", deckClicked)
+function newGame() {
+  deck.addEventListener("click", deckClicked)
+  startTimer()
+}
+ newGame()
 
 
 /*
