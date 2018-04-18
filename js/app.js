@@ -27,6 +27,17 @@ let completedPairs = []
 const deck = document.querySelector(".deck")
 let moves = document.querySelector('.moves')
 
+
+function startTimer(){
+  let timer = document.querySelector(".timer");
+  let seconds = 0
+  let minutes = 0
+}
+
+
+
+
+
 /* small function which only opens and displays the card.
 The click event handler comes later on */
 function showCard(card) {
@@ -53,7 +64,6 @@ function wrongMove() {
 function emptyOpenedCards() {
   completedPairs.push(openedCards)
   openedCards.pop()
-
 }
 
 function turnMatchGreen() {
@@ -67,6 +77,7 @@ function congratulations() {
 
 // this will be run when a card is clicked
 function cardClicked(event) {
+  startTimer()
   let selectedCard = event.target
 
 // adds the cards to the openedCards array
@@ -89,10 +100,9 @@ function cardClicked(event) {
 
     } else {
       // will invove wrongMove function after 0.75 seconds
-      setTimeout(wrongMove, 750)
+      setTimeout(wrongMove, 300)
     }
   }
-
 }
 
 deck.addEventListener("click", cardClicked)
