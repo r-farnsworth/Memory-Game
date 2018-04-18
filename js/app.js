@@ -27,17 +27,6 @@ let completedPairs = []
 const deck = document.querySelector(".deck")
 let moves = document.querySelector('.moves')
 
-
-function startTimer(){
-  let timer = document.querySelector(".timer");
-  let seconds = 0
-  let minutes = 0
-}
-
-
-
-
-
 /* small function which only opens and displays the card.
 The click event handler comes later on */
 function showCard(card) {
@@ -58,17 +47,27 @@ function wrongMove() {
   // a while loop to remove the cards from openCards using the pop() method
   while (openedCards.length !== 0) {
     hideCard(openedCards.pop())
+    enableDeck()
   }
 }
 
 function emptyOpenedCards() {
   completedPairs.push(openedCards)
   openedCards.pop()
+  enableDeck()
 }
 
 function turnMatchGreen() {
   openedCards[0].classList.add('match')
   openedCards[1].classList.add('match')
+}
+
+function disableDeck() {
+  deck.classList.add("disabled")
+}
+
+function enableDeck() {
+  deck.classList.remove("disabled")
 }
 
 function congratulations() {
@@ -77,7 +76,6 @@ function congratulations() {
 
 // this will be run when a card is clicked
 function cardClicked(event) {
-  startTimer()
   let selectedCard = event.target
 
 // adds the cards to the openedCards array
@@ -88,6 +86,7 @@ function cardClicked(event) {
 
 // checks for a match
   if (openedCards.length === 2) {
+    disableDeck()
     addMoves()
      if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
        turnMatchGreen()
@@ -97,16 +96,23 @@ function cardClicked(event) {
           setTimeout(congratulations, 250)
         }
       }
-
     } else {
-      // will invove wrongMove function after 0.75 seconds
-      setTimeout(wrongMove, 300)
+      // will invove wrongMove function after 0.3 seconds
+      setTimeout(wrongMove, 750)
     }
   }
 }
 
-deck.addEventListener("click", cardClicked)
+function deckClicked(event){
+  // if the click was on a card, pass it on to the card clicked event
+  if (event.target.className === "card") {
+    cardClicked(event)
+  } else {
+    console.log("you clicked the deck. Oops!")
+  }
+}
 
+deck.addEventListener("click", deckClicked)
 
 
 /*
