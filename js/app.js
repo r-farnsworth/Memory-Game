@@ -95,7 +95,7 @@ function resetStars() {
 
 function resetCards() {
   for (i=0; i < 16; i++) {
-    allCards[i].classList.remove("match", "open", "show") 
+    allCards[i].classList.remove("match", "open", "show")
   }
 }
 
@@ -186,18 +186,21 @@ function deckClicked(event) {
 
 
 function newGame() {
+  clearInterval(interval)
+  interval = null
   moves.innerHTML = 0
   resetStars()
   resetCards()
   second = 0
   minute = 0
-  clearInterval(interval)
+  timer.innerHTML = `${minute} minutes ${second} seconds`
   emptyOpenedCards()
   completedPairs = []
 }
 
 deck.addEventListener("click", deckClicked)
 restartButton.addEventListener("click", newGame)
+
 newGame()
 
 
