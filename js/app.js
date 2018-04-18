@@ -27,7 +27,8 @@ let completedPairs = []
 const deck = document.querySelector(".deck")
 let moves = document.querySelector('.moves')
 const stars = document.querySelectorAll(".fa-star");
-
+const restartButton = document.querySelector(".restart")
+const allCards = document.querySelectorAll(".card")
 
 let second = 0,
   minute = 0;
@@ -86,6 +87,18 @@ function checkStarRating() {
   }
 }
 
+function resetStars() {
+  for(i=0; i < 3; i++) {
+    stars[i].style.visibility = "visible"
+  }
+}
+
+function resetCards() {
+  for (i=0; i < 16; i++) {
+    allCards[i].classList.remove("match", "open", "show") 
+  }
+}
+
 function wrongMove() {
   // a while loop to remove the cards from openCards using the pop() method, then re-enables the deck for play
   while (openedCards.length !== 0) {
@@ -110,8 +123,8 @@ function enableDeck() {
 }
 
 function turnMatchGreen() {
-  openedCards[0].classList.add('match')
-  openedCards[1].classList.add('match')
+  openedCards[0].classList.add("match")
+  openedCards[1].classList.add("match")
 }
 
 function congratulations() {
@@ -173,10 +186,20 @@ function deckClicked(event) {
 
 
 function newGame() {
-  deck.addEventListener("click", deckClicked)
-
+  moves.innerHTML = 0
+  resetStars()
+  resetCards()
+  second = 0
+  minute = 0
+  clearInterval(interval)
+  emptyOpenedCards()
+  completedPairs = []
 }
- newGame()
+
+deck.addEventListener("click", deckClicked)
+restartButton.addEventListener("click", newGame)
+newGame()
+
 
 
 /*
