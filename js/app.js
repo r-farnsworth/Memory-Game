@@ -27,24 +27,24 @@ let completedPairs = []
 const deck = document.querySelector(".deck")
 let moves = document.querySelector('.moves')
 
-/* small function which only opens and displays the card.
-The click event handler comes later on */
+/* small functions which are either invoked by each other
+or later by the event handlers. This stops me writing more code than I need to, or having very large and bloated functions. */
+
 function showCard(card) {
   card.classList.add('open', 'show')
 }
 
-/* this function is the opposite of showCard();
-it removes the classes and is invoked by the wrongMove() function. */
 function hideCard(card) {
   card.classList.remove('open', 'show')
 }
 
 function addMoves() {
+  // increments the innerHTML of the moves variable by 1.
   moves.innerHTML++
 }
 
 function wrongMove() {
-  // a while loop to remove the cards from openCards using the pop() method
+  // a while loop to remove the cards from openCards using the pop() method, then re-enables the deck for play
   while (openedCards.length !== 0) {
     hideCard(openedCards.pop())
     enableDeck()
@@ -57,12 +57,8 @@ function emptyOpenedCards() {
   enableDeck()
 }
 
-function turnMatchGreen() {
-  openedCards[0].classList.add('match')
-  openedCards[1].classList.add('match')
-}
-
 function disableDeck() {
+  // removes the pointer events on the deck so the user cannot open more than two cards
   deck.classList.add("disabled")
 }
 
@@ -70,7 +66,18 @@ function enableDeck() {
   deck.classList.remove("disabled")
 }
 
+function turnMatchGreen() {
+  openedCards[0].classList.add('match')
+  openedCards[1].classList.add('match')
+}
+
 function congratulations() {
+  /* TODO: this needs to be a modal containing
+  1 congratulations message
+  2 time taken to complete game
+  3 star rating
+  4 option to reset board
+  */
   window.alert("all the pairs are belong to you!")
 }
 
@@ -78,32 +85,38 @@ function congratulations() {
 function cardClicked(event) {
   let selectedCard = event.target
 
-// adds the cards to the openedCards array
+  /* adds the cards to the openedCards array
+  if they aren't already there
+  */
   if (!openedCards.includes(selectedCard)) {
-     showCard(selectedCard)
-     openedCards.push(selectedCard)
+    showCard(selectedCard)
+    openedCards.push(selectedCard)
   }
 
-// checks for a match
+  // central logic for checking the cards
   if (openedCards.length === 2) {
+    // prevents further clicking so user cannot quickly open
+    // more than two cards
     disableDeck()
+    // increment moves by 1
     addMoves()
-     if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
-       turnMatchGreen()
-       while (openedCards.length !== 0) {
+    if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
+      turnMatchGreen()
+      // empty openCardsArray
+      while (openedCards.length !== 0) {
         emptyOpenedCards()
         if (completedPairs.length === 16) {
           setTimeout(congratulations, 250)
         }
       }
     } else {
-      // will invove wrongMove function after 0.3 seconds
-      setTimeout(wrongMove, 750)
+      // will invove wrongMove function after 0.5 seconds
+      setTimeout(wrongMove, 500)
     }
   }
 }
 
-function deckClicked(event){
+function deckClicked(event) {
   // if the click was on a card, pass it on to the card clicked event
   if (event.target.className === "card") {
     cardClicked(event)
@@ -111,6 +124,7 @@ function deckClicked(event){
     console.log("you clicked the deck. Oops!")
   }
 }
+
 
 deck.addEventListener("click", deckClicked)
 
@@ -137,14 +151,3 @@ function shuffle(array) {
 
   return array;
 }
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
