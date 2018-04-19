@@ -36,6 +36,22 @@ let timer = document.querySelector(".timer");
 // Using a falsy value here so that the startTimer function will only run once the cardClicked event fires, and will not re-run when another card is clicked
 let interval = null;
 
+// Shuffle function from http://stackoverflow.com/a/2450976
+function shuffle(array) {
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 function startTimer() {
   if (interval) {
     return
@@ -201,7 +217,7 @@ function newGame() {
 deck.addEventListener("click", deckClicked)
 restartButton.addEventListener("click", newGame)
 
-newGame()
+window.onload = newGame()
 
 
 
@@ -211,19 +227,3 @@ newGame()
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue, randomIndex;
-
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
