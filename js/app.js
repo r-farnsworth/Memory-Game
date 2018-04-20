@@ -9,7 +9,7 @@ const stars = document.querySelectorAll(".fa-star");
 const restartButton = document.querySelector(".restart")
 const allCards = document.querySelectorAll(".card")
 let deckChildren = document.getElementsByClassName("card")
-let cardPics = []
+let cardPics = [...deckChildren]
 let openedCards = []
 let completedPairs = []
 
@@ -37,11 +37,11 @@ function shuffle(array) {
 }
 
 function shuffleCards() {
-  cardPics.push(deckChildren)
   while (deck.firstChild) {
     deck.removeChild(deck.firstChild)
   }
   shuffle(cardPics)
+  deck.append(cardPics)
 }
 
 function startTimer() {
