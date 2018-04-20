@@ -8,8 +8,8 @@ let moves = document.querySelector('.moves')
 const stars = document.querySelectorAll(".fa-star");
 const restartButton = document.querySelector(".restart")
 const allCards = document.querySelectorAll(".card")
-let deckChildren = document.getElementsByClassName("card")
-let cardPics = [...deckChildren]
+
+let cardPics = [...allCards]
 let openedCards = []
 let completedPairs = []
 
@@ -36,13 +36,15 @@ function shuffle(array) {
   return array;
 }
 
-function shuffleCards() {
-  while (deck.firstChild) {
-    deck.removeChild(deck.firstChild)
-  }
-  shuffle(cardPics)
-  deck.append(cardPics)
-}
+// thanks to Sandra Israel-Ovirih for this code!
+function shuffleTheDeck(){
+let shuffledCards = shuffle(cardPics);
+   for (let i= 0; i < shuffledCards.length; i++){
+      [].forEach.call(shuffledCards, function(item){
+         deck.appendChild(item);
+      });
+   }
+ }
 
 function startTimer() {
   if (interval) {
@@ -80,13 +82,13 @@ function addMoves() {
 }
 
 function checkStarRating() {
-  if (moves.innerHTML > 9 && moves.innerHTML < 14) {
+  if (moves.innerHTML > 12 && moves.innerHTML < 18) {
       for(i=0; i < 3; i++) {
         if (i > 1) {
           stars[i].style.visibility = "collapse"
         }
       }
-  } else if (moves.innerHTML > 18){
+  } else if (moves.innerHTML > 22){
     for(i=0; i < 3; i++) {
       if (i > 0) {
           stars[i].style.visibility = "collapse"
@@ -204,6 +206,7 @@ function newGame() {
   timer.innerHTML = `${minute} minutes ${second} seconds`
   emptyOpenedCards()
   completedPairs = []
+  shuffleTheDeck()
 
 }
 
