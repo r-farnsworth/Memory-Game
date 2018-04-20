@@ -1,34 +1,18 @@
 /* array containing all my cards.
 Note that there are 8 pairs or 16 individual cards in total.
 */
-const cardPics = [
-  "fa-diamond",
-  "fa-paper-plane-o",
-  "fa-anchor",
-  "fa-bolt",
-  "fa-cube",
-  "fa-leaf",
-  "fa-bicycle",
-  "fa-music",
-  "fa-diamond",
-  "fa-paper-plane-o",
-  "fa-anchor",
-  "fa-bolt",
-  "fa-cube",
-  "fa-leaf",
-  "fa-bicycle",
-  "fa-music"
-]
 
-//these arrays are empty for now - will be filled later as the game progresses.
-let openedCards = []
-let completedPairs = []
 
 const deck = document.querySelector(".deck")
 let moves = document.querySelector('.moves')
 const stars = document.querySelectorAll(".fa-star");
 const restartButton = document.querySelector(".restart")
 const allCards = document.querySelectorAll(".card")
+let deckChildren = document.getElementsByClassName("card")
+let cardPics = []
+let openedCards = []
+let completedPairs = []
+
 
 let second = 0,
   minute = 0;
@@ -50,6 +34,14 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function shuffleCards() {
+  cardPics.push(deckChildren)
+  while (deck.firstChild) {
+    deck.removeChild(deck.firstChild)
+  }
+  shuffle(cardPics)
 }
 
 function startTimer() {
@@ -212,6 +204,7 @@ function newGame() {
   timer.innerHTML = `${minute} minutes ${second} seconds`
   emptyOpenedCards()
   completedPairs = []
+
 }
 
 deck.addEventListener("click", deckClicked)
