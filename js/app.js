@@ -7,7 +7,9 @@ const deck = document.querySelector(".deck")
 let moves = document.querySelector('.moves')
 const stars = document.querySelectorAll(".fa-star");
 const restartButton = document.querySelector(".restart")
+const playAgainButton = document.querySelector(".play-again")
 const allCards = document.querySelectorAll(".card")
+const modal = document.querySelector(".modal")
 
 let cardPics = [...allCards]
 let openedCards = []
@@ -36,15 +38,12 @@ function shuffle(array) {
   return array;
 }
 
-// thanks to Sandra Israel-Ovirih for this code!
-function shuffleTheDeck(){
-let shuffledCards = shuffle(cardPics);
-   for (let i= 0; i < shuffledCards.length; i++){
-      [].forEach.call(shuffledCards, function(item){
-         deck.appendChild(item);
-      });
-   }
- }
+function shuffleTheDeck() {
+  let shuffledCards = shuffle(cardPics);
+  shuffledCards.forEach(function(item) {
+    deck.appendChild(item);
+  });
+}
 
 function startTimer() {
   if (interval) {
@@ -78,33 +77,33 @@ function hideCard(card) {
 function addMoves() {
   // increments the innerHTML of the moves variable by 1.
   moves.innerHTML++
-  checkStarRating()
+    checkStarRating()
 }
 
 function checkStarRating() {
   if (moves.innerHTML > 12 && moves.innerHTML < 18) {
-      for(i=0; i < 3; i++) {
-        if (i > 1) {
-          stars[i].style.visibility = "collapse"
-        }
+    for (i = 0; i < 3; i++) {
+      if (i > 1) {
+        stars[i].style.visibility = "collapse"
       }
-  } else if (moves.innerHTML > 22){
-    for(i=0; i < 3; i++) {
+    }
+  } else if (moves.innerHTML > 22) {
+    for (i = 0; i < 3; i++) {
       if (i > 0) {
-          stars[i].style.visibility = "collapse"
+        stars[i].style.visibility = "collapse"
       }
     }
   }
 }
 
 function resetStars() {
-  for(i=0; i < 3; i++) {
+  for (i = 0; i < 3; i++) {
     stars[i].style.visibility = "visible"
   }
 }
 
 function resetCards() {
-  for (i=0; i < 16; i++) {
+  for (i = 0; i < 16; i++) {
     allCards[i].classList.remove("match", "open", "show")
   }
 }
@@ -144,8 +143,25 @@ function congratulations() {
   3 star rating
   4 option to reset board
   */
-  window.alert("all the pairs are belong to you!")
+  let finalMoves = moves.innerHTML
+  let timeTaken = timer.innerHTML
+  let finalStarRating = document.querySelector(".star-rating").innerHTML
+
+
   clearInterval(interval)
+
+  modal.classList.add("show");
+  document.querySelector(".total-moves").innerHTML = `You made ${finalMoves} moves`
+  document.querySelector(".total-time").innerHTML = `in ${timeTaken}`
+  document.querySelector(".final-star-rating").innerHTML = `${finalStarRating}`
+
+
+  playAgainButton.addEventListener("click", closeModal)
+}
+
+function closeModal() {
+  modal.classList.remove("show")
+  newGame()
 }
 
 // this will be run when a card is clicked
@@ -154,8 +170,7 @@ function cardClicked(event) {
   let selectedCard = event.target
 
   /* adds the cards to the openedCards array
-  if they aren't already there
-  */
+  if they aren't already there */
   if (!openedCards.includes(selectedCard)) {
     showCard(selectedCard)
     openedCards.push(selectedCard)
@@ -189,8 +204,6 @@ function deckClicked(event) {
 
   if (event.target.className === "card") {
     cardClicked(event)
-  } else {
-    console.log("you clicked the deck. Oops!")
   }
 }
 
@@ -214,28 +227,3 @@ deck.addEventListener("click", deckClicked)
 restartButton.addEventListener("click", newGame)
 
 newGame()
-
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue, randomIndex;
-
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}

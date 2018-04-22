@@ -18,7 +18,7 @@ body {
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font-family: "Coda", cursive;
 }
 
 .container {
@@ -29,7 +29,7 @@ body {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: 300;
 }
 
@@ -40,7 +40,7 @@ h1 {
 .deck {
     width: 660px;
     min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    background: linear-gradient(160deg, #02ccba 0%, #ffa500 100%);
     padding: 32px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
@@ -67,7 +67,7 @@ h1 {
 
 .deck .card.open {
     transform: rotateY(0);
-    background: #02b3e4;
+    background: #ffa500;
     cursor: default;
 }
 
@@ -90,9 +90,18 @@ h1 {
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
-    margin-bottom: 10px;
+    text-align: center;
+    width: 600px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.star-rating,
+.moves-container,
+.timer {
+  margin-right: 10px;
 }
 
 .score-panel .stars {
@@ -103,11 +112,84 @@ h1 {
 }
 
 .score-panel .stars li {
-    list-style: none;
+    list-style-type: none;
     display: inline-block;
 }
 
 .score-panel .restart {
-    float: right;
     cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    font-family: "Coda";
+    font-size: 1em;
+    border-radius: 10px;
+}
+
+/*
+ * Styles for congratulations modal
+ */
+
+
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,0,0,0.5);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+
+.popup {
+	margin: 70px auto;
+	padding: 30px;
+	background: #fff;
+	border-radius: 10px;
+	max-width: 50%;
+	position: relative;
+	transition: all 5s ease-in-out;
+
+}
+
+.popup h2 {
+	margin-top: 0;
+	color: #323;
+  text-align: center;
+}
+
+
+.popup .content-1,
+.content-2 {
+	max-height: 30%;
+	overflow: auto;
+	text-align: center;
+}
+
+.show {
+	visibility: visible !important;
+	opacity: 100 !important;
+}
+
+.final-star-rating li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+.play-again {
+	background-color: #323;
+	padding: 0.7rem 1rem;
+	font-size: 1.1rem;
+	display: block;
+	margin: auto;
+	width: 20%;
+
+	color: #ffffff;
+	border-radius: 5px;
 }
