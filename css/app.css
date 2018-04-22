@@ -181,6 +181,10 @@ h1 {
   list-style-type: none;
 }
 
+.final-star-rating .stars {
+  padding: 0;
+}
+
 .play-again {
   background-color: #02ccba;
   padding: 0.7rem 1rem;

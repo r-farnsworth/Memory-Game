@@ -85,13 +85,13 @@ function checkStarRating() {
   if (moves.innerHTML > 12 && moves.innerHTML < 18) {
     for (i = 0; i < 3; i++) {
       if (i > 1) {
-        stars[i].style.visibility = "collapse"
+        stars[i].style.color = "#999"
       }
     }
   } else if (moves.innerHTML > 22) {
     for (i = 0; i < 3; i++) {
       if (i > 0) {
-        stars[i].style.visibility = "collapse"
+        stars[i].style.color = "#999"
       }
     }
   }
@@ -152,9 +152,9 @@ function congratulations() {
   clearInterval(interval)
 
   modal.classList.add("show");
-  document.querySelector(".total-moves").innerHTML = `You made ${finalMoves} moves`
-  document.querySelector(".total-time").innerHTML = `in ${timeTaken}`
+  document.querySelector(".total-moves").innerHTML = `You made ${finalMoves} moves in ${timeTaken}`
   document.querySelector(".final-star-rating").innerHTML = `${finalStarRating}`
+
 
 
   playAgainButton.addEventListener("click", closeModal)
