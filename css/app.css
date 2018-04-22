@@ -182,13 +182,14 @@ h1 {
 }
 
 .play-again {
-  background-color: #323;
+  background-color: #02ccba;
   padding: 0.7rem 1rem;
   font-size: 1.1rem;
   display: block;
   margin: auto;
   width: 20%;
-  text-align: center color: #ffffff;
+  text-align: center;
+  color: #ffffff;
   border-radius: 5px;
-  cursor: pointer; 
+  cursor: pointer;
 }
