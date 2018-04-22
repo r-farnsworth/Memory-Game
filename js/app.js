@@ -77,6 +77,7 @@ function hideCard(card) {
 function addMoves() {
   // increments the innerHTML of the moves variable by 1.
   moves.innerHTML++
+
     checkStarRating()
 }
 
