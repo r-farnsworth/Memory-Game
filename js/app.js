@@ -99,7 +99,7 @@ function checkStarRating() {
 
 function resetStars() {
   for (i = 0; i < 3; i++) {
-    stars[i].style.visibility = "visible"
+    stars[i].style.color = "#000"
   }
 }
 
